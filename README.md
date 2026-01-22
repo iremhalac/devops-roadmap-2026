@@ -17,3 +17,5 @@
 **Başlangıç:** Thu Jan 22 16:53:00 CET 2026  
 **Durum:** Repo setup tamam ✅
 - [✅] systemctl/launchctl servis kontrolü (com.docker.helper PID 25306)
+- [✅] log show Docker logs (son 5dk temiz)
+- [✅] ps aux Docker process (PID 25311, 70MB RAM, sağlıklı)
