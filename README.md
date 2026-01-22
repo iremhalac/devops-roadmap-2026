@@ -26,3 +26,4 @@
 - ps aux: Docker 70MB RAM, sağlıklı
 - lsof: Port 8000 temiz
 
+- [✅] FastAPI local app (GET /, POST /predict 200 OK)
