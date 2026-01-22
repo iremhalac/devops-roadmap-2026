@@ -19,3 +19,10 @@
 - [✅] systemctl/launchctl servis kontrolü (com.docker.helper PID 25306)
 - [✅] log show Docker logs (son 5dk temiz)
 - [✅] ps aux Docker process (PID 25311, 70MB RAM, sağlıklı)
+
+## Linux/MacOS Pratik Sonuçları ✅
+- launchctl: Docker PID 25311 aktif
+- log show: Son 5dk temiz  
+- ps aux: Docker 70MB RAM, sağlıklı
+- lsof: Port 8000 temiz
+
