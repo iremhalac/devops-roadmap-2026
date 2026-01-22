@@ -2,7 +2,7 @@
 
 ## 📋 Günlük Plan
 ### Gün 1: Linux Basics + Docker + FastAPI Containerization
-- [ ] systemctl, journalctl, process/memory/networking pratik
+# systemctl, journalctl ✅ in progress, journalctl, process/memory/networking pratik
 - [ ] FastAPI app geliştir (health + predict endpoint)
 - [ ] Multi-stage Dockerfile yaz
 - [ ] Docker build/run + log troubleshoot
