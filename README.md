@@ -16,3 +16,4 @@
 **OS:** macOS (Docker Desktop)  
 **Başlangıç:** Thu Jan 22 16:53:00 CET 2026  
 **Durum:** Repo setup tamam ✅
+- [✅] systemctl/launchctl servis kontrolü (com.docker.helper PID 25306)
