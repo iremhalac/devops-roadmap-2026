@@ -1,46 +1,59 @@
-4 günlük yoğun DevOps öğrenme yolculuğu - Mid-level mülakatlara hazırlık (Audi, ng-voice, etc.)
+# 🚀 DevOps Roadmap 2026
 
-## 📋 Günlük Plan
-### Gün 1: Linux Basics + Docker + FastAPI Containerization
-# systemctl, journalctl ✅ in progress, journalctl, process/memory/networking pratik
-- [ ] FastAPI app geliştir (health + predict endpoint)
-- [ ] Multi-stage Dockerfile yaz
-- [ ] Docker build/run + log troubleshoot
+**5 Günlük Production ML Pipeline** ☸️🐳🔄
 
-### Gün 2: GitHub Actions CI/CD + AWS EC2 Deploy
-### Gün 3: Kubernetes Minikube (Deployment, Service, ConfigMap)
-### Gün 4: Terraform IaC + Prometheus/Grafana Monitoring
+## 📊 Progress
+✅ GÜN1: FastAPI + Docker + Test
+✅ GÜN2: GitHub Actions CI/CD + Docker Hub + Pages
+🔄 GÜN3: Minikube Kubernetes
+🔄 GÜN4: Terraform Infrastructure
+🔄 GÜN5: Helm + ArgoCD + Monitoring
+## 🟢 Live Demos
+| Service | Status | URL |
+|---------|--------|-----|
+| **CI/CD Pipeline** | 🟢 Live | https://github.com/iremhalac/devops-roadmap-2026/actions |
+| **Docker Image** | 🟢 Pushed | https://hub.docker.com/r/iremhalac/devops-roadmap |
+| **API Docs** | 🟢 Hosted | https://iremhalac.github.io/devops-roadmap-2026/openapi.json |
+| **Swagger UI** | 🔄 Local | \`localhost:8080/docs\` |
 
-## Progress Log
-**Makine:** MacBook Pro M2  
-**OS:** macOS (Docker Desktop)  
-**Başlangıç:** Thu Jan 22 16:53:00 CET 2026  
-**Durum:** Repo setup tamam ✅
-- [✅] systemctl/launchctl servis kontrolü (com.docker.helper PID 25306)
-- [✅] log show Docker logs (son 5dk temiz)
-- [✅] ps aux Docker process (PID 25311, 70MB RAM, sağlıklı)
+## 🏗️ Architecture
+GitHub → Actions (CI/CD) → Docker Hub → Minikube (K8s) → Production
+↓
+GitHub Pages (Docs)
 
-## Linux/MacOS Pratik Sonuçları ✅
-- launchctl: Docker PID 25311 aktif
-- log show: Son 5dk temiz  
-- ps aux: Docker 70MB RAM, sağlıklı
-- lsof: Port 8000 temiz
+## 🚀 Quick Demo
+\`\`\`bash
+# M2 Mac uyumlu
+docker pull --platform linux/amd64 iremhalac/devops-roadmap:latest
+docker run --platform linux/amd64 -p 8080:8000 iremhalac/devops-roadmap:latest
+open http://localhost:8080/docs  # FastAPI Swagger UI
+\`\`\`
 
-- [✅] FastAPI local app (GET /, POST /predict 200 OK)
+## 📈 Pipeline Flow
+\`\`\`mermaid
+graph TD
+    A[Push Code] --> B[GitHub Actions]
+    B --> C[Pytest]
+    C --> D[Docker Build]
+    D --> E[Docker Hub Push]
+    E --> F[GitHub Pages Docs]
+    F --> G[✅ Deployed]
+\`\`\`
 
-## 🏆 Gün1 Achievements
+## 🛠️ Tech Stack
+🐍 FastAPI + Pytest + Uvicorn
+🐳 Docker Multi-stage
+🔄 GitHub Actions
+📦 Docker Hub
+☸️ Minikube (GÜN3)
+🌐 GitHub Pages
 
-| Task | Status | Evidence |
-|------|--------|----------|
-| Linux komutları | ✅ | launchctl PID 25311, ps aux 70MB |
-| FastAPI app | ✅ | POST /predict → prediction dönüyor |
-| Multi-stage Dockerfile | ✅ | 56.5MB → curl/healthcheck |
-| Docker container | ✅ | ID: 0b2c6cc0268a STATUS: healthy |
-| Ports | ✅ | localhost:8000 → Swagger UI |
+## 📋 Günlük Checkpoints
+- **GÜN1**: \`docker run\` → localhost:8080/docs ✅
+- **GÜN2**: Actions YEŞİL + Docker Hub + Pages ✅
+- **GÜN3**: \`kubectl get pods\` → Running
+- **GÜN4**: \`terraform apply\` → K8s cluster
+- **GÜN5**: \`helm install\` → Zero-downtime
 
-**Production ready checklist:**
-✅ Healthcheck aktif
-✅ Logs temiz  
-✅ Multi-stage optimization
-✅ curl ile internal test OK
-eof
+---
+**İrem Halac** | ML Engineer | Jan 2026
