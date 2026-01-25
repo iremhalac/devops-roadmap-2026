@@ -57,3 +57,7 @@ graph TD
 
 ---
 **İrem Halac** | ML Engineer | Jan 2026
+## ☸️ GÜN3: Kubernetes (Minikube)
+✅ 3x Replica deployment
+✅ LoadBalancer service
+✅ http://127.0.0.1:63924/docs LIVE!
