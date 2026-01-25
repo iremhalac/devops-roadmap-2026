@@ -42,27 +42,32 @@ jobs:
         push: true
         tags: iremhalac/devops-roadmap:latest
 
-  deploy-docs:
+    deploy-docs:
     runs-on: ubuntu-latest
     needs: docker
     if: github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Python
+    - name: Setup Python & Generate OpenAPI
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
     
-    - name: Generate OpenAPI docs
+    - name: Install deps & export schema
       run: |
-        pip install fastapi uvicorn redoc-cli
-        redoc-cli bundle main.py::app.openapi_schema \
-          --output docs/index.html \
-          --title "DevOps Roadmap API"
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs[web:65][web:71]
+        pip install fastapi uvicorn
+        python -c "
+  import json
+  from main import app
+  with open('openapi.json', 'w') as f:
+      json.dump(app.openapi(), f, indent=2)
+          "
+      
+      - name: Deploy OpenAPI JSON to Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          enable_jekyll: false
+
