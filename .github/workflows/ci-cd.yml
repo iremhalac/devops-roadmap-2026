@@ -41,31 +41,20 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: iremhalac/devops-roadmap:latest
-  deploy-docs:
-    runs-on: ubuntu-latest
-    needs: docker
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Python & Generate OpenAPI
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    
-    - name: Install deps & export schema
-      run: |
-        pip install fastapi uvicorn
-        python -c "
-import json
-from main import app
-with open('openapi.json', 'w') as f:
-    json.dump(app.openapi(), f, indent=2)
-        "
-    
-    - name: Deploy OpenAPI JSON to Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
-        enable_jekyll: false
+        deploy-docs:
+        runs-on: ubuntu-latest
+        needs: docker
+        if: github.ref == 'refs/heads/main'
+        steps:
+        - name: Pull image & export OpenAPI
+          run: |
+            docker pull iremhalac/devops-roadmap:latest
+            docker run --rm iremhalac/devops-roadmap:latest \
+              curl -s localhost:8000/openapi.json > openapi.json
+            
+        - name: Deploy to Pages
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./
+            force_orphan: true
