@@ -40,12 +40,10 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v4
-    - name: Download OpenAPI from Docker
+    - name: Get OpenAPI schema
       run: |
         docker pull iremhalac/devops-roadmap:latest
-        docker run --rm iremhalac/devops-roadmap:latest curl localhost:8000/openapi.json > openapi.json
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        docker run --rm -p 8000:8000 iremhalac/devops-roadmap:latest &
+        sleep 5
+        curl http://localhost:8000/openapi.json > openapi.json
+        echo "✅ OpenAPI exported"
