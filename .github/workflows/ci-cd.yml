@@ -14,21 +14,19 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11'
-    - run: |
-        pip install -r requirements.txt pytest
-        pytest tests/ -v || pytest -v
+    - run: pip install -r requirements.txt pytest && pytest -v
 
   docker:
     runs-on: ubuntu-latest
     needs: test
     steps:
     - uses: actions/checkout@v4
-    - name: Login to DockerHub
+    - name: Docker Login
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push
+    - name: Build Docker
       uses: docker/build-push-action@v5
       with:
         context: .
@@ -36,31 +34,18 @@ jobs:
         push: true
         tags: iremhalac/devops-roadmap:latest
 
-  pages:
+  deploy-docs:
     runs-on: ubuntu-latest
     needs: docker
     if: github.ref == 'refs/heads/main'
-    permissions:
-      pages: write
-      id-token: write
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-    - name: Generate OpenAPI JSON
+    - name: Download OpenAPI from Docker
       run: |
-        pip install fastapi uvicorn
-        python -c "
-app = __import__('main').app
-import json
-with open('openapi.json', 'w') as f:
-  json.dump(app.openapi(), f, indent=2)
-        "
-    - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: .
+        docker pull iremhalac/devops-roadmap:latest
+        docker run --rm iremhalac/devops-roadmap:latest curl localhost:8000/openapi.json > openapi.json
     - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
